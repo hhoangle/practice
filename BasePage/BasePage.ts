@@ -141,13 +141,32 @@ export class BasePage {
         await this.page.keyboard.press('Delete');
     }
 
-    async getElementText(locator: string): Promise<string>{
-        const element = await this.page.locator(locator);
-        return await element.innerText();
+    async getElementText(locator: string): Promise<string | null> {
+        // Find the element using the provided selector
+        const element = await this.page.locator(locator).first();
+
+        // Get the text content of the element
+        const text = await element.textContent();
+
+        if (text !== null) {
+            console.log(text);
+            return text;
+        } else {
+            console.error(`Element with selector "${locator}" not found.`);
+            return null;
+        }
     }
 
-    async getElementsText(locatorType: string, ...dynamicValues: string[]): Promise<string> {
-        return await this.page.locator(this.getDynamicXpath(locatorType, ...dynamicValues)).innerText();
+    async getElementsTextByXPath(xpath: string): Promise<string[]> {
+        const elements = await this.page.$$(xpath);
+        const textList: string[] = [];
+
+        for (const element of elements) {
+            const text = await element.innerText();
+            textList.push(text);
+        }
+
+        return textList;
     }
 
     async selectItemInDefaultDropdown(locatorType: string, textItem: string, ...dynamicValues: string[]) {
@@ -512,6 +531,7 @@ export class BasePage {
         }
         return result;
     }
+
     async clickToElementDynamic(locatorType: string, ...dynamicValues: string[]) {
         // @ts-ignore
         const xpath = this.getDynamicXpath(locatorType, dynamicValues); // Generate dynamic XPath
