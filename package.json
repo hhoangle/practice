@@ -1,0 +1,21 @@
+{
+  "name": "js_practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "action.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/faker": "^6.6.9",
+    "@types/node": "^20.11.30",
+    "allure-commandline": "^2.27.0",
+    "allure-playwright": "^2.15.0",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "faker": "^6.6.6"
+  }
+}
