@@ -141,20 +141,10 @@ export class BasePage {
         await this.page.keyboard.press('Delete');
     }
 
-    async getElementText(locator: string): Promise<string | null> {
-        // Find the element using the provided selector
-        const element = await this.page.locator(locator).first();
-
-        // Get the text content of the element
-        const text = await element.textContent();
-
-        if (text !== null) {
-            console.log(text);
-            return text;
-        } else {
-            console.error(`Element with selector "${locator}" not found.`);
-            return null;
-        }
+    async getElementText(selector: string): Promise<string> {
+        await this.page.waitForSelector(selector);
+        const element = await this.page.$(selector);
+        return element ? await element.innerText() : '';
     }
 
     async getElementsTextByXPath(xpath: string): Promise<string[]> {

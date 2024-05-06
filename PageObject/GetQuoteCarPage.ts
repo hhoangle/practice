@@ -135,8 +135,9 @@ export class GetQuoteCarPage extends BasePage {
         await this.clickToElement(GetQuoteCarPageUI.YES_CONTINUE_BUTTON)
     }
 
-    async areAddOnsDisabled() {
-        const elementsText = await this.getElementsTextByXPath("//p[@class='text-title text-semi-bold mb-1']");
+    async getText() {
+        console.log("get text is running")
+        const elementsText = await this.getElementText("//p[@class='text-title text-semi-bold mb-1']");
         console.log("Elements Text:", elementsText);
 
         return elementsText;
